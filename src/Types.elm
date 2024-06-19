@@ -1,27 +1,31 @@
 module Types exposing (..)
 
-import Http
 import Array2D exposing (Array2D)
+import Http
 
-type alias Nono = 
-    { title  : String
+
+type alias Nono =
+    { title : String
     , height : Int
-    , width  : Int
-    , rows   : List (List Int)
-    , columns: List (List Int)
-    , goal   : List (List Bool) 
+    , width : Int
+    , rows : List (List Int)
+    , columns : List (List Int)
+    , goal : List (List Bool)
     }
 
-type alias Matrix = 
+
+type alias Matrix =
     Array2D Bool
 
-type Msg 
+
+type Msg
     = GotNono (Result Http.Error Nono)
     | More
-    | Check (Int, Int)
+    | Check ( Int, Int )
 
-type Model 
+
+type Model
     = Failure String
-    | Loading 
-    | Succ (Nono, Matrix)
+    | Loading
+    | Succ ( Nono, Matrix )
     | Win
