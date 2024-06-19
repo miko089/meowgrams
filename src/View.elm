@@ -1,6 +1,6 @@
 module View exposing (..)
 
-import Array2D exposing (columns, get, rows)
+import Array2D exposing (get)
 import Html exposing (Html, button, div, h2, h3, table, td, text, tr)
 import Html.Events exposing (onClick)
 import List exposing (map, range)
@@ -70,10 +70,6 @@ view model =
             div []
                 [ h2 [] [ text "Meowgram" ]
                 , viewTitle nono
-                , text <| String.fromInt nono.height ++ " "
-                , text <| String.fromInt nono.width ++ " "
-                , text <| String.fromInt (rows matrix) ++ " "
-                , text <| String.fromInt (columns matrix)
                 , table ([] ++ tableStyle) (makeHeader nono :: makeTable nono matrix)
                 , button [ onClick More ] [ text "New Nono!" ]
                 ]
