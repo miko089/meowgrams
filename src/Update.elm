@@ -25,11 +25,15 @@ update msg model =
                 Succ ( nono, matrix ) ->
                     case get x y matrix of
                         Just w ->
-                            if set x y (not w) matrix == fromList nono.goal then
+                            let
+                                newMatrix =
+                                    set x y (not w) matrix
+                            in
+                            if newMatrix == fromList nono.goal then
                                 ( Win, Cmd.none )
 
                             else
-                                ( Succ ( nono, set x y (not w) matrix ), Cmd.none )
+                                ( Succ ( nono, newMatrix ), Cmd.none )
 
                         Nothing ->
                             ( Failure "Impossible", Cmd.none )

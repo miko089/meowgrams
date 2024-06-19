@@ -36,11 +36,17 @@ makeTable nono matrix =
                 td tdStyle [ text <| join " " (map String.fromInt row) ]
                     :: map
                         (\col ->
-                            if withDefault False (get num col matrix) then
-                                td (tdStyle ++ cellStyle ++ activeStyle ++ checkStyle num col) []
+                            td
+                                (tdStyle ++ cellStyle
+                                    ++ (if withDefault False (get num col matrix) then
+                                            activeStyle
 
-                            else
-                                td (tdStyle ++ cellStyle ++ inactiveStyle ++ checkStyle num col) []
+                                        else
+                                            inactiveStyle
+                                       )
+                                    ++ checkStyle num col
+                                )
+                                []
                         )
                         (range 0 (nono.width - 1))
         )
