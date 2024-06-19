@@ -28,6 +28,22 @@ makeHeader nono =
                 nono.rows
 
 
+makeCell : Matrix -> Int -> Int -> Html Msg
+makeCell matrix num col =
+    td
+        (tdStyle
+            ++ cellStyle
+            ++ (if withDefault False (get num col matrix) then
+                    activeStyle
+
+                else
+                    inactiveStyle
+               )
+            ++ checkStyle num col
+        )
+        []
+
+
 makeTable : Nono -> Matrix -> List (Html Msg)
 makeTable nono matrix =
     map
@@ -35,19 +51,7 @@ makeTable nono matrix =
             tr trStyle <|
                 td tdStyle [ text <| join " " (map String.fromInt row) ]
                     :: map
-                        (\col ->
-                            td
-                                (tdStyle ++ cellStyle
-                                    ++ (if withDefault False (get num col matrix) then
-                                            activeStyle
-
-                                        else
-                                            inactiveStyle
-                                       )
-                                    ++ checkStyle num col
-                                )
-                                []
-                        )
+                        (makeCell matrix num)
                         (range 0 (nono.width - 1))
         )
         (zip (range 0 (nono.height - 1)) nono.columns)
